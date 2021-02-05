@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/_10sdp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="@dimen/_120sdp"
+                android:layout_height="@dimen/_120sdp"
+                android:src="@drawable/ic_bot__1_" />
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/Title_TextView"
+                android:text="@string/login"
+                android:textStyle="bold" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/til_username"
+                style="@style/TextInputLayout"
+                app:errorEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:id="@+id/tie_username"
+                    android:layout_height="@dimen/_35sdp"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_5sdp"
+                    android:background="@drawable/et_bg"
+                    android:hint="@string/username"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:textColorHint="@color/light_blue"
+                    android:textSize="@dimen/_12sdp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_username_error"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginTop="0dp"
+                android:visibility="gone"
+                android:gravity="start"
+                android:text="@string/forgot_password"
+                android:textColor="@color/red"
+                android:textSize="@dimen/_9sdp" />
+
+            <com.google.android.material.textfield.TextInputLayout style="@style/TextInputLayout">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:id="@+id/tie_pass"
+                    android:layout_height="@dimen/_35sdp"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_5sdp"
+                    android:background="@drawable/et_bg"
+                    android:hint="@string/password"
+                    android:paddingStart="@dimen/_10sdp"
+                    android:paddingEnd="@dimen/_10sdp"
+                    android:textColorHint="@color/light_blue"
+                    android:textSize="@dimen/_12sdp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_pass_error"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginTop="0dp"
+                android:gravity="start"
+                android:visibility="gone"
+                android:text="@string/forgot_password"
+                android:textColor="@color/red"
+                android:textSize="@dimen/_9sdp" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/tv_forgot"
+                style="@style/Small_TextView"
+                android:layout_margin="@dimen/_2sdp"
+                android:gravity="end"
+                android:paddingEnd="@dimen/_13sdp"
+                android:text="@string/forgot_password" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_login"
+                style="@style/fab_button"
+                app:srcCompat="@drawable/ic_arrow_right" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_10sdp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <com.google.android.material.textview.MaterialTextView
+                    style="@style/Small_TextView"
+                    android:layout_width="0dp"
+                    android:layout_margin="0dp"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_2sdp"
+                    android:layout_weight="1.5"
+                    android:gravity="end"
+                    android:padding="@dimen/_2sdp"
+                    android:text="Don't have an account?" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_sign_up"
+                    style="@style/Small_TextView"
+                    android:layout_width="0dp"
+                    android:layout_margin="0dp"
+                    android:layout_marginStart="@dimen/_2sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:padding="@dimen/_2sdp"
+                    android:text="@string/sign_up"
+                    android:textColor="@color/light_blue" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    style="@style/fab_button"
+                    app:srcCompat="@drawable/ic_facebook" />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    style="@style/fab_button"
+                    app:srcCompat="@drawable/ic_google" />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

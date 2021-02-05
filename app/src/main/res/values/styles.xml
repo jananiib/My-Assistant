@@ -1,0 +1,137 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/light_blue</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/light_blue</item>
+    </style>
+
+    <style name="Title_TextView" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">@dimen/_16sdp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:layout_margin">@dimen/_10sdp</item>
+
+    </style>
+
+    <style name="Medium_TextView" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">@dimen/_11sdp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_margin">@dimen/_10sdp</item>
+
+    </style>
+
+    <style name="Small_TextView" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">@dimen/_12sdp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_margin">@dimen/_10sdp</item>
+
+    </style>
+
+    <style name="ButtonStyle" parent="Widget.MaterialComponents.Button">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minHeight">?actionBarSize</item>
+        <item name="android:gravity">center</item>>
+        <item name="android:layout_margin">@dimen/_10sdp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:padding">@dimen/_5sdp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">@dimen/_12sdp</item>
+        <item name="cornerRadius">@dimen/_20sdp</item>
+        <item name="backgroundTint">@color/light_blue</item>
+    </style>
+
+    <style name="EditTextStyle" parent="Widget.AppCompat.EditText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/_35sdp</item>
+        <item name="android:gravity">center|start</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:padding">@dimen/_5sdp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textColorHint">@color/ed_bg</item>
+        <item name="android:textSize">@dimen/_12sdp</item>
+        <item name="android:longClickable">false</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="TextInputLayout" parent="Widget.Design.TextInputLayout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/_55sdp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:colorControlActivated">@color/light_blue</item>
+        <item name="android:colorControlNormal">@color/light_blue</item>
+        <item name="android:padding">@dimen/_2sdp</item>
+        <item name="android:textColorHint">@color/light_blue</item>
+        <item name="android:theme">@style/TextInputLayoutAppearance</item>
+    </style>
+
+    <style name="TextInputLayoutAppearance" parent="Widget.Design.TextInputLayout">
+        <item name="hintTextAppearance">@style/TextInputLayoutHint</item>
+        <item name="errorTextAppearance">@style/TextInputLayoutError</item>
+    </style>
+
+    <style name="TextInputLayoutEditText" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:textColorHint">@color/light_blue</item>
+        <item name="android:layout_height">@dimen/_35sdp</item>
+        <item name="android:background">@drawable/et_bg</item>
+
+        <item name="android:layout_marginBottom">@dimen/_5sdp</item>
+        <item name="android:layout_marginTop">@dimen/_5sdp</item>
+        <item name="android:layout_marginStart">@dimen/_10sdp</item>
+        <item name="android:layout_marginEnd">@dimen/_10sdp</item>
+
+        <item name="android:gravity">center|start</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">@dimen/_12sdp</item>
+        <item name="android:paddingTop">@dimen/_5sdp</item>
+        <item name="android:paddingBottom">@dimen/_5sdp</item>
+        <item name="android:paddingStart">@dimen/_15sdp</item>
+        <item name="android:paddingEnd">@dimen/_15sdp</item>
+
+    </style>
+
+    <style name="TextInputLayoutHint" parent="TextAppearance.Design.Hint">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">@dimen/_10sdp</item>
+        <item name="android:layout_margin">@dimen/_5sdp</item>
+
+    </style>
+
+    <style name="TextInputLayoutError" parent="TextAppearance.Design.Error">
+        <item name="android:textColor">@color/red</item>
+        <item name="android:textSize">@dimen/_10sdp</item>
+        <item name="android:padding">@dimen/_5sdp</item>
+    </style>
+
+    <style name="fab_button" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="rippleColor">@color/white</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_margin">@dimen/_10sdp</item>
+        <item name="backgroundTint">@color/light_blue</item>
+        <item name="fabSize">normal</item>
+        <item name="tint">@color/white</item>
+    </style>
+
+
+</resources>
