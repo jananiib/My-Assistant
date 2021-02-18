@@ -133,5 +133,16 @@
         <item name="tint">@color/white</item>
     </style>
 
+    <style name="fab_button_camera" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="rippleColor">@color/white</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_margin">@dimen/_10sdp</item>
+        <item name="backgroundTint">@color/white</item>
+        <item name="fabSize">normal</item>
+        <item name="tint">@color/light_blue</item>
+    </style>
+
 
 </resources>

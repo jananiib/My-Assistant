@@ -8,7 +8,7 @@
     android:background="@color/white"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".splashscreen.SplashScreenActivity">
+    tools:context=".ui.splashscreen.SplashScreenActivity">
 
     <com.google.android.material.textview.MaterialTextView
         style="@style/Medium_TextView"

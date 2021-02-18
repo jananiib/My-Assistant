@@ -18,7 +18,13 @@
     //Sign up Screen
     <string name="name">Name</string>
     <string name="email">Email</string>
+    <string name="emergency_number">Emergency Number</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="or_sign_up_using">Or sign up using</string>
+
+    //Dashboard Screen
+    <string name="chat">Chat</string>
+    <string name="scan">Scan</string>
+
 
 </resources>
