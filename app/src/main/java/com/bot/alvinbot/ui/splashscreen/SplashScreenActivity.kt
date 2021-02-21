@@ -1,16 +1,20 @@
 package com.bot.alvinbot.ui.splashscreen
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.bot.alvinbot.utils.AskPermission
 import com.bot.alvinbot.R
+import com.bot.alvinbot.ui.base.BaseActivity
 import com.bot.alvinbot.ui.login.LoginActivity
+import com.bot.alvinbot.utils.AskPermission
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class SplashScreenActivity : AppCompatActivity() {
+class SplashScreenActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,16 +45,17 @@ class SplashScreenActivity : AppCompatActivity() {
                         AskPermission.READ_SMS
                     )
                 )
-            }
-
-            else{
+            } else {
                 launch()
             }
         }
 
+        var requestOptions = RequestOptions()
+        requestOptions = requestOptions.transform(CenterCrop(), RoundedCorners(50))
+        Glide.with(this).load(getImage("logo_bot")).apply(requestOptions)
+            .into(findViewById(R.id.iv_logo))
 
     }
-
 
 
     override fun onRequestPermissionsResult(

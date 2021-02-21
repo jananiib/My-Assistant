@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.bot.alvinbot.data.network.Resource
 import com.bot.alvinbot.data.network.Status
 import com.bot.alvinbot.extensions.isNullOrEmpty
+import com.bot.alvinbot.extensions.isValidEmail
 import com.bot.alvinbot.repo.AuthRepository
 import com.google.firebase.auth.AuthResult
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -31,7 +32,7 @@ class LoginViewModel @Inject constructor(
     var emailIdError = ObservableField("")
     var passwordError = ObservableField("")
 
-
+    val valid=MutableLiveData(false)
 
     fun validation() {
         clearError()
@@ -40,6 +41,10 @@ class LoginViewModel @Inject constructor(
 
         if (!isNullOrEmpty(emailId.get())) {
             emailIdError.set("Please Enter Email Id")
+        }else{
+            if (isValidEmail(emailId.get())){
+                emailIdError.set("Please Enter Valid Email Id")
+            }
         }
 
         if (!isNullOrEmpty(password.get())) {
@@ -52,7 +57,7 @@ class LoginViewModel @Inject constructor(
         ) {
 
             // register()
-
+            valid.postValue(true)
         }
 
     }

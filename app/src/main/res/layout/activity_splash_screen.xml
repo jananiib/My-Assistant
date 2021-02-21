@@ -10,51 +10,66 @@
     android:orientation="vertical"
     tools:context=".ui.splashscreen.SplashScreenActivity">
 
-    <com.google.android.material.textview.MaterialTextView
-        style="@style/Medium_TextView"
-        android:layout_gravity="top"
-        android:text="@string/welcome"
-        android:textColor="@color/light_blue" />
-
-
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <LinearLayout
+        <ImageView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:alpha="0.4"
+            android:background="@drawable/main_bg" />
+
+
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/Medium_TextView"
+            android:layout_gravity="top"
+            android:text="@string/creator"
+            android:textColor="@color/white" />
+
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
             android:gravity="center"
             android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="@dimen/_100sdp"
-                android:layout_height="@dimen/_100sdp"
-                android:layout_gravity="center"
-                android:contentDescription="@string/app_name"
-                android:elevation="@dimen/_50sdp"
-                android:src="@drawable/logo_bot" />
-
-
-            <com.github.ybq.android.spinkit.SpinKitView
-                android:id="@+id/spin_kit"
-                style="@style/SpinKitView.WanderingCubes"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center|bottom"
-                app:SpinKit_Color="@color/light_blue" />
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="vertical">
 
-        </LinearLayout>
+                <ImageView
+                    android:id="@+id/iv_logo"
+                    android:layout_width="@dimen/_100sdp"
+                    android:layout_height="@dimen/_100sdp"
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/app_name"
+                    android:elevation="@dimen/_50sdp"
+                    android:src="@drawable/logo_bot" />
 
-        <com.google.android.material.textview.MaterialTextView
-            style="@style/Medium_TextView"
-            android:layout_gravity="bottom"
-            android:text="@string/alvin"
-            android:textColor="@color/light_blue" />
+
+                <com.github.ybq.android.spinkit.SpinKitView
+                    android:id="@+id/spin_kit"
+                    android:layout_margin="@dimen/_10sdp"
+                    style="@style/SpinKitView.WanderingCubes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|bottom"
+                    app:SpinKit_Color="@color/white" />
+
+            </LinearLayout>
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/Medium_TextView"
+                android:layout_gravity="bottom"
+                android:text="@string/janani"
+                android:textColor="@color/white" />
+
+        </FrameLayout>
 
     </FrameLayout>
 

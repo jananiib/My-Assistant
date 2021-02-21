@@ -63,13 +63,8 @@ open class BaseActivity : AppCompatActivity() {
     fun floatingSos(
         view: View,
         motionEvent: MotionEvent,
-        sosPrimaryNumber: String,
-        sosSecondaryNumber: String,
-        name: String,
-        mobileNumber: String,
-        link: String,
         clicked: Boolean,
-        plateNumber: String
+        location: String
     ): Boolean {
         val layoutParams = view.layoutParams as ViewGroup.MarginLayoutParams
 
@@ -132,7 +127,7 @@ open class BaseActivity : AppCompatActivity() {
 
                 if (clicked) {
 
-                    Toast.makeText(this, "hh", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, location, Toast.LENGTH_SHORT).show()
 
                     /*     val smsIntent = Intent(
                              Intent.ACTION_SENDTO,
@@ -145,9 +140,7 @@ open class BaseActivity : AppCompatActivity() {
                              "Hi, This is ${name} (${mobileNumber}). I am taking a trip on a Taxi license plate $plateNumber and need urgent assistance. Here is my live link:\n $link"
                          )
                          startActivity(smsIntent)*/
-                } else if (isNullOrEmpty(sosPrimaryNumber)) {
-                    //showFailureCustomToast("Sorry no trip yet")
-                } else {
+                }else {
                     //showFailureCustomToast("Please share the link")
 
                 }
@@ -163,4 +156,9 @@ open class BaseActivity : AppCompatActivity() {
         }
 
     }
+
+    fun getImage(imageName: String?): Int {
+        return resources.getIdentifier(imageName, "drawable", packageName)
+    }
+
 }

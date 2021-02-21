@@ -32,7 +32,6 @@ class CameraViewModel @Inject constructor(
     var passwordError = ObservableField("")
 
 
-
     fun validation() {
         clearError()
 

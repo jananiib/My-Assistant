@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
         val PREFERENCE_NAME = "SharedPreferenceExample"
         val preference = this.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE)
         val editor = preference.edit()
-        editor.putString(PREFERENCE_NAME, "my name is alvin")
+        editor.putString(PREFERENCE_NAME, "my name is janani")
 
 
 
@@ -162,7 +162,7 @@ class MainActivity : AppCompatActivity() {
         mainFunction(args)
         initializeTexttoSpeach()
 
-        val list=listOf("hi","my name is alvin","bye")
+        val list=listOf("hi","my name is janani","bye")
         list.forEach {
             sendMessage(it)
             val response = chat!!.multisentenceRespond(

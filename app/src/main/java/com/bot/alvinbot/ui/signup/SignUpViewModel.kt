@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.bot.alvinbot.data.network.Resource
 import com.bot.alvinbot.data.network.Status
 import com.bot.alvinbot.extensions.isNullOrEmpty
+import com.bot.alvinbot.extensions.isValidEmail
 import com.bot.alvinbot.repo.AuthRepository
 import com.google.firebase.auth.AuthResult
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -47,6 +48,10 @@ class SignUpViewModel @Inject constructor(
 
         if (!isNullOrEmpty(emailId.get())) {
             emailIdError.set("Please Enter Email Id")
+        } else {
+            if (isValidEmail(emailId.get())) {
+                emailIdError.set("Please Enter Valid Email Id")
+            }
         }
         if (!isNullOrEmpty(emergencyNumber.get())) {
             emergencyNumberError.set("Please Enter Emergency Number")

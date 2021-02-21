@@ -1,11 +1,12 @@
 <resources>
-    <string name="app_name">Alvin Bot</string>
+    <string name="app_name">My Bot</string>
 
 
     //Splash Screen
     <string name="owner_by">Owner by</string>
     <string name="welcome">Welcome</string>
-    <string name="alvin">Alvin</string>
+    <string name="creator">Creator</string>
+    <string name="janani">Janani</string>
 
     //Login Screen
     <string name="login">Login</string>
@@ -26,5 +27,7 @@
     <string name="chat">Chat</string>
     <string name="scan">Scan</string>
 
+    <string name="scanned_txt">Scanned Text</string>
+    <string name="instruction">Instruction</string>
 
 </resources>
