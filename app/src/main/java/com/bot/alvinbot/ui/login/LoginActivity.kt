@@ -7,11 +7,11 @@ import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.bot.alvinbot.R
+import com.bot.alvinbot.data.network.Status
 import com.bot.alvinbot.databinding.ActivityLoginBinding
 import com.bot.alvinbot.extensions.hideView
 import com.bot.alvinbot.extensions.showView
 import com.bot.alvinbot.ui.base.BaseActivity
-import com.bot.alvinbot.ui.camera.CameraActivity
 import com.bot.alvinbot.ui.dashBoard.DashBoardActivity
 import com.bot.alvinbot.ui.forgot.ForgotPasswordActivity
 import com.bot.alvinbot.ui.main.MainActivity
@@ -20,13 +20,16 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
+import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class LoginActivity : BaseActivity(), View.OnClickListener {
 
     private val loginViewModel by viewModels<LoginViewModel>()
     lateinit var binding: ActivityLoginBinding
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,12 +44,16 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         Glide.with(this).load(getImage("logo_bot")).apply(requestOptions)
             .into(binding.ivLogo)
 
-        loginViewModel.valid.observe(this, Observer {
-            if (it){
+        //Glide.with(this).asGif().load(R.drawable.tenor).into(binding.ivLogo);
+
+      /*  loginViewModel.valid.observe(this, Observer {
+            if (it) {
                 startActivity(Intent(this, DashBoardActivity::class.java))
                 finish()
             }
-        })
+        })*/
+
+        loginObserver()
 
     }
 
@@ -60,6 +67,33 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
             }
         }
     }
+
+    private fun loginObserver() {
+        loginViewModel.apiResponse.observe(this, Observer { result ->
+            result?.status?.let {
+                when (it) {
+                    Status.SUCCESS -> {
+                        hideProgress()
+                        startActivity(Intent(this, DashBoardActivity::class.java))
+                        finish()
+                    }
+                    Status.ERROR -> {
+                        hideProgress()
+                        showToast(
+                            result.message.toString()
+                        )
+                    }
+                    Status.LOADING -> {
+                        showProgress()
+                    }
+
+                }
+
+            }
+
+        })
+    }
+
 
     private fun validation() {
         if (binding.tieUsername.text.isNullOrEmpty()) {

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "70572462940",
+    "project_id": "my-bot-7c224",
+    "storage_bucket": "my-bot-7c224.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:70572462940:android:5c5a391f55317828232799",
+        "android_client_info": {
+          "package_name": "com.bot.alvinbot"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "70572462940-brc92tsfis2ir79k24gn8euii2o93s80.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bot.alvinbot",
+            "certificate_hash": "26d085d26c85a82a38dd57b4a2e568b26a2d9df9"
+          }
+        },
+        {
+          "client_id": "70572462940-fidnl14b3p2nmq547h1ch4dbje8q4eds.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBkNDjH2qjQgaI6iWwti0v3SC91WqFWubw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "70572462940-fidnl14b3p2nmq547h1ch4dbje8q4eds.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

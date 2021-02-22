@@ -10,14 +10,14 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
-class AuthRepository @Inject constructor(/*private val auth: FirebaseAuth*/) {
+class AuthRepository @Inject constructor(private val auth: FirebaseAuth) {
 
     suspend fun login(emailId: String, password: String): Flow<Resource<AuthResult>> {
         return flow {
-           /* val result = auth.signInWithEmailAndPassword(
+            val result = auth.signInWithEmailAndPassword(
                 emailId, password
-            ).await()*/
-            emit(Resource(Status.SUCCESS, null, null))
+            ).await()
+            emit(Resource(Status.SUCCESS, result, null))
         }.catch {
             emit(Resource(Status.ERROR, null, it.message))
         }
@@ -25,14 +25,24 @@ class AuthRepository @Inject constructor(/*private val auth: FirebaseAuth*/) {
 
     suspend fun register(emailId: String, password: String): Flow<Resource<AuthResult>> {
         return flow {
-          /*  val result = auth.createUserWithEmailAndPassword(
+            val result = auth.createUserWithEmailAndPassword(
                 emailId, password
-            ).await()*/
-            emit(Resource(Status.SUCCESS, null, null))
+            ).await()
+            emit(Resource(Status.SUCCESS, result, null))
         }.catch {
             emit(Resource(Status.ERROR, null, it.message))
         }
     }
 
+    suspend fun forgotPassword(emailId: String): Flow<Resource<Void>> {
+        return flow {
+            val result = auth.sendPasswordResetEmail(
+                emailId
+            ).await()
+            emit(Resource(Status.SUCCESS, result, null))
+        }.catch {
+            emit(Resource(Status.ERROR, null, it.message))
+        }
+    }
 
 }

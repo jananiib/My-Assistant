@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_gravity="end"
     android:orientation="vertical"
     android:padding="3dp">
 
@@ -18,6 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
+            android:layout_weight="1"
             android:background="@drawable/send_bg"
             android:padding="@dimen/_8sdp"
             android:text="hii"
@@ -27,7 +27,7 @@
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="@dimen/_20sdp"
             android:layout_height="@dimen/_20sdp"
-            android:layout_gravity="center|end"
+            android:layout_gravity="center|bottom"
             android:layout_margin="@dimen/_2sdp"
             android:src="@drawable/ic_man" />
     </LinearLayout>

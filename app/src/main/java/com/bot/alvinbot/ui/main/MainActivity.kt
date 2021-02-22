@@ -78,7 +78,9 @@ class MainActivity : AppCompatActivity() {
                 }
         });
 
-*/mListView = findViewById<View>(R.id.listView) as ListView
+*/
+
+        mListView = findViewById<View>(R.id.listView) as ListView
         mButtonSend = findViewById<View>(R.id.btn_send) as FloatingActionButton
         mEditTextMessage = findViewById<View>(R.id.et_message) as EditText
         mImageView = findViewById<View>(R.id.iv_image) as ImageView

@@ -73,7 +73,7 @@ class SignUpViewModel @Inject constructor(
             (password.get() == confirmPassword.get())
         ) {
 
-            // register()
+             register()
 
         }
 

@@ -9,6 +9,7 @@ import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import androidx.activity.viewModels
@@ -16,17 +17,22 @@ import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import com.bot.alvinbot.R
 import com.bot.alvinbot.databinding.ActivityDashBoardBinding
+import com.bot.alvinbot.databinding.BottomLogoutBinding
 import com.bot.alvinbot.databinding.ItemDashboardInstructionBinding
 import com.bot.alvinbot.ui.base.BaseActivity
 import com.bot.alvinbot.ui.base.IDashboardSOSVisibleOrNot
 import com.bot.alvinbot.ui.camera.CameraActivity
+import com.bot.alvinbot.ui.login.LoginActivity
 import com.bot.alvinbot.ui.main.MainActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
+import javax.inject.Inject
 
 
 @AndroidEntryPoint
@@ -36,6 +42,9 @@ class DashBoardActivity : BaseActivity(), View.OnClickListener, View.OnTouchList
     private val dashBoardViewModel by viewModels<DashBoardViewModel>()
     lateinit var binding: ActivityDashBoardBinding
     var visibleOrNot = true
+
+    @Inject
+    lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,6 +81,10 @@ class DashBoardActivity : BaseActivity(), View.OnClickListener, View.OnTouchList
             }
             binding.cvScan -> {
                 startActivity(Intent(this, CameraActivity::class.java))
+            }
+            binding.ivLogout -> {
+                bottomSheetLogout()
+
             }
         }
     }
@@ -185,5 +198,37 @@ class DashBoardActivity : BaseActivity(), View.OnClickListener, View.OnTouchList
 
     }
 
+
+    private fun bottomSheetLogout(
+    ) {
+        val dialog = BottomSheetDialog(this)
+        val binding = DataBindingUtil.inflate<BottomLogoutBinding>(
+            LayoutInflater.from(this),
+            R.layout.bottom_logout,
+            null,
+            false
+        )
+        dialog.setContentView(binding.root)
+
+
+
+
+        binding.btnYes.setOnClickListener {
+            dialog.dismiss()
+            auth.signOut()
+            startActivity(Intent(this, LoginActivity::class.java))
+            finish()
+        }
+
+
+        binding.ivClose.setOnClickListener {
+            dialog.dismiss()
+        }
+        binding.btnNo.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.show()
+    }
 
 }

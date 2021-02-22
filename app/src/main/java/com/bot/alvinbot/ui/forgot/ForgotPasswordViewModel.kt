@@ -22,8 +22,8 @@ class ForgotPasswordViewModel @Inject constructor(
     private val authRepository: AuthRepository
 ) : ViewModel() {
 
-    private val _apiResponse = MutableLiveData<Resource<AuthResult>>()
-    val apiResponse: MutableLiveData<Resource<AuthResult>> = _apiResponse
+    private val _apiResponse = MutableLiveData<Resource<Void>>()
+    val apiResponse: MutableLiveData<Resource<Void>> = _apiResponse
 
     var emailId = ObservableField("")
 
@@ -44,11 +44,9 @@ class ForgotPasswordViewModel @Inject constructor(
         }
 
         if (
-            isNullOrEmpty(emailId.get())
+            isNullOrEmpty(emailId.get()) && !isValidEmail(emailId.get())
         ) {
-
-            // register()
-
+            forgotPassword()
         }
 
     }
@@ -58,7 +56,7 @@ class ForgotPasswordViewModel @Inject constructor(
         emailIdError.set("")
     }
 
-  /*  private fun register() {
+    private fun forgotPassword() {
 
         viewModelScope.launch {
             CoroutineScope(Dispatchers.IO).launch {
@@ -66,7 +64,7 @@ class ForgotPasswordViewModel @Inject constructor(
                 _apiResponse.postValue(Resource(Status.LOADING, null, null))
 
                 kotlin.runCatching {
-                    authRepository.register(emailId.get()!!, password.get()!!)
+                    authRepository.forgotPassword(emailId.get()!!)
                 }.onSuccess { success ->
                     success.collect {
                         _apiResponse.postValue(it)
@@ -78,7 +76,7 @@ class ForgotPasswordViewModel @Inject constructor(
             }
         }
 
-    }*/
+    }
 
 
 }

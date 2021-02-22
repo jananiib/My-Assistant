@@ -32,8 +32,6 @@ class LoginViewModel @Inject constructor(
     var emailIdError = ObservableField("")
     var passwordError = ObservableField("")
 
-    val valid=MutableLiveData(false)
-
     fun validation() {
         clearError()
 
@@ -56,8 +54,7 @@ class LoginViewModel @Inject constructor(
             isNullOrEmpty(password.get())
         ) {
 
-            // register()
-            valid.postValue(true)
+            login()
         }
 
     }
@@ -69,7 +66,7 @@ class LoginViewModel @Inject constructor(
 
     }
 
-    private fun register() {
+    private fun login() {
 
         viewModelScope.launch {
             CoroutineScope(Dispatchers.IO).launch {
@@ -77,7 +74,7 @@ class LoginViewModel @Inject constructor(
                 _apiResponse.postValue(Resource(Status.LOADING, null, null))
 
                 kotlin.runCatching {
-                    authRepository.register(emailId.get()!!, password.get()!!)
+                    authRepository.login(emailId.get()!!, password.get()!!)
                 }.onSuccess { success ->
                     success.collect {
                         _apiResponse.postValue(it)

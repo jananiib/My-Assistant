@@ -2,19 +2,29 @@ package com.bot.alvinbot.ui.splashscreen
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.lifecycle.lifecycleScope
 import com.bot.alvinbot.R
 import com.bot.alvinbot.ui.base.BaseActivity
+import com.bot.alvinbot.ui.dashBoard.DashBoardActivity
 import com.bot.alvinbot.ui.login.LoginActivity
 import com.bot.alvinbot.utils.AskPermission
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
-import kotlinx.coroutines.GlobalScope
+import com.google.firebase.auth.FirebaseAuth
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class SplashScreenActivity : BaseActivity() {
+
+
+    @Inject
+    lateinit var auth: FirebaseAuth
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +56,7 @@ class SplashScreenActivity : BaseActivity() {
                     )
                 )
             } else {
-                launch()
+                checkLoggedInState()
             }
         }
 
@@ -66,17 +76,24 @@ class SplashScreenActivity : BaseActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
         if (requestCode == AskPermission.PERMISSION_CODE) {
-            launch()
+            checkLoggedInState()
         }
     }
 
 
-    private fun launch() {
-        GlobalScope.launch {
-            delay(2000)
-            startActivity(Intent(this@SplashScreenActivity, LoginActivity::class.java))
+    private fun checkLoggedInState() {
+        if (auth.currentUser == null) {
+            launchScreen(LoginActivity::class.java)
+        } else {
+            launchScreen(DashBoardActivity::class.java)
+        }
+    }
+
+    private fun launchScreen(targetActivity: Class<out Any>) {
+        lifecycleScope.launch {
+            delay(2000L)
+            startActivity(Intent(this@SplashScreenActivity, targetActivity))
             finish()
         }
-
     }
 }
