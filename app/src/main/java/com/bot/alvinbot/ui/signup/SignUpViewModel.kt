@@ -69,11 +69,12 @@ class SignUpViewModel @Inject constructor(
             isNullOrEmpty(emailId.get()) &&
             isNullOrEmpty(emergencyNumber.get()) &&
             isNullOrEmpty(password.get()) &&
+            !isValidEmail(emailId.get()) &&
             isNullOrEmpty(confirmPassword.get()) &&
             (password.get() == confirmPassword.get())
         ) {
 
-             register()
+            register()
 
         }
 

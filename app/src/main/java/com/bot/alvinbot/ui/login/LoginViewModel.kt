@@ -51,7 +51,7 @@ class LoginViewModel @Inject constructor(
 
         if (
             isNullOrEmpty(emailId.get()) &&
-            isNullOrEmpty(password.get())
+            isNullOrEmpty(password.get()) && !isValidEmail(emailId.get())
         ) {
 
             login()
