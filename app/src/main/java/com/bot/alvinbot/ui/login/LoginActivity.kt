@@ -10,6 +10,7 @@ import com.bot.alvinbot.R
 import com.bot.alvinbot.data.network.Status
 import com.bot.alvinbot.databinding.ActivityLoginBinding
 import com.bot.alvinbot.ui.base.BaseActivity
+import com.bot.alvinbot.ui.dashBoard.DashBoardActivity
 import com.bot.alvinbot.ui.forgot.ForgotPasswordActivity
 import com.bot.alvinbot.ui.signup.SignUpActivity
 import com.bumptech.glide.Glide
@@ -35,16 +36,6 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
 
         setBotImageCornerRadius(binding.ivLogo)
 
-
-        //Glide.with(this).asGif().load(R.drawable.tenor).into(binding.ivLogo);
-
-      /*  loginViewModel.valid.observe(this, Observer {
-            if (it) {
-                startActivity(Intent(this, DashBoardActivity::class.java))
-                finish()
-            }
-        })*/
-
         loginObserver()
 
     }
@@ -66,9 +57,8 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                 when (it) {
                     Status.SUCCESS -> {
                         dismissProgressBar()
-                        showSuccessCustomToast("Login successfully")
-                       /* startActivity(Intent(this, DashBoardActivity::class.java))
-                        finish()*/
+                        startActivity(Intent(this, DashBoardActivity::class.java))
+                        finish()
                     }
                     Status.ERROR -> {
                         dismissProgressBar()

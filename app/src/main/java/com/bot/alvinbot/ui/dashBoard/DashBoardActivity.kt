@@ -77,14 +77,13 @@ class DashBoardActivity : BaseActivity(), View.OnClickListener, View.OnTouchList
     override fun onClick(v: View?) {
         when (v) {
             binding.cvChat -> {
-                startActivity(Intent(this, MainActivity::class.java))
+             //   startActivity(Intent(this, MainActivity::class.java))
             }
             binding.cvScan -> {
-                startActivity(Intent(this, CameraActivity::class.java))
+               // startActivity(Intent(this, CameraActivity::class.java))
             }
             binding.ivLogout -> {
                 bottomSheetLogout()
-
             }
         }
     }
