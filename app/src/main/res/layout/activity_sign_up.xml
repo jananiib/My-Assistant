@@ -21,336 +21,385 @@
         android:background="@color/white"
         android:orientation="vertical"
         tools:context=".ui.login.LoginActivity">
+
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:alpha="0.4"
-           android:background="@drawable/main_bg"/>
+                android:background="@drawable/main_bg" />
 
-
-        <androidx.core.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <LinearLayout
+            <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="@dimen/_10sdp"
-                android:gravity="center"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <com.google.android.material.textview.MaterialTextView
                     style="@style/Title_TextView"
+
                     android:text="@string/sign_up"
                     android:textStyle="bold" />
 
-                <com.google.android.material.textfield.TextInputLayout style="@style/TextInputLayout">
+                <androidx.core.widget.NestedScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
-                    <com.google.android.material.textfield.TextInputEditText
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_35sdp"
-                        android:layout_marginStart="@dimen/_10sdp"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:layout_marginEnd="@dimen/_10sdp"
-                        android:layout_marginBottom="@dimen/_5sdp"
-                        android:background="@drawable/et_bg"
-                        android:hint="@string/name"
-                        android:singleLine="true"
-                        android:paddingStart="@dimen/_10sdp"
-                        android:paddingEnd="@dimen/_10sdp"
-                        android:text="@={signUpViewModel.name}"
-                        android:textColorHint="@color/light_blue"
-                        android:textSize="@dimen/_12sdp" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_name_error"
-
-                    isVisible="@{signUpViewModel.nameError}"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_12sdp"
-                    android:layout_marginTop="0dp"
-                    android:gravity="start"
-                    android:text="@={signUpViewModel.nameError}"
-                    android:textColor="@color/red"
-                    android:textSize="@dimen/_9sdp"
-                    android:visibility="gone" />
-
-                <com.google.android.material.textfield.TextInputLayout style="@style/TextInputLayout">
-
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_35sdp"
-                        android:layout_marginStart="@dimen/_10sdp"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:layout_marginEnd="@dimen/_10sdp"
-                        android:layout_marginBottom="@dimen/_5sdp"
-                        android:background="@drawable/et_bg"
-                        android:hint="@string/email"
-                        android:singleLine="true"
-                        android:paddingStart="@dimen/_10sdp"
-                        android:paddingEnd="@dimen/_10sdp"
-                        android:text="@={signUpViewModel.emailId}"
-                        android:textColorHint="@color/light_blue"
-                        android:textSize="@dimen/_12sdp" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_email_error"
-                    isVisible="@{signUpViewModel.emailIdError}"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_12sdp"
-                    android:layout_marginTop="0dp"
-                    android:gravity="start"
-
-                    android:text="@={signUpViewModel.emailIdError}"
-
-                    android:textColor="@color/red"
-                    android:textSize="@dimen/_9sdp"
-                    android:visibility="gone" />
-
-                <com.google.android.material.textfield.TextInputLayout style="@style/TextInputLayout">
-
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_35sdp"
-                        android:layout_marginStart="@dimen/_10sdp"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:layout_marginEnd="@dimen/_10sdp"
-                        android:layout_marginBottom="@dimen/_5sdp"
-                        android:background="@drawable/et_bg"
-                        android:hint="@string/emergency_number"
-                        android:paddingStart="@dimen/_10sdp"
-                        android:singleLine="true"
-                        android:paddingEnd="@dimen/_10sdp"
-                        android:text="@={signUpViewModel.emergencyNumber}"
-                        android:textColorHint="@color/light_blue"
-                        android:textSize="@dimen/_12sdp" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_emergency_error"
-                    isVisible="@{signUpViewModel.emergencyNumberError}"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_12sdp"
-                    android:layout_marginTop="0dp"
-
-                    android:gravity="start"
-                    android:text="@={signUpViewModel.emergencyNumberError}"
-                    android:textColor="@color/red"
-                    android:textSize="@dimen/_9sdp"
-                    android:visibility="gone" />
-
-                <com.google.android.material.textfield.TextInputLayout style="@style/TextInputLayout">
-
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_35sdp"
-                        android:layout_marginStart="@dimen/_10sdp"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:layout_marginEnd="@dimen/_10sdp"
-                        android:layout_marginBottom="@dimen/_5sdp"
-                        android:background="@drawable/et_bg"
-                        android:hint="@string/password"
-                        android:paddingStart="@dimen/_10sdp"
-                        android:paddingEnd="@dimen/_10sdp"
-                        android:singleLine="true"
-                        android:text="@={signUpViewModel.password}"
-                        android:textColorHint="@color/light_blue"
-                        android:textSize="@dimen/_12sdp" />
-
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_password_error"
-
-                    isVisible="@{signUpViewModel.passwordError}"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_12sdp"
-
-                    android:layout_marginTop="0dp"
-                    android:gravity="start"
-                    android:text="@={signUpViewModel.passwordError}"
-                    android:textColor="@color/red"
-                    android:textSize="@dimen/_9sdp"
-                    android:visibility="gone" />
-
-                <com.google.android.material.textfield.TextInputLayout style="@style/TextInputLayout">
-
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_35sdp"
-                        android:layout_marginStart="@dimen/_10sdp"
-                        android:layout_marginTop="@dimen/_5sdp"
-                        android:layout_marginEnd="@dimen/_10sdp"
-                        android:layout_marginBottom="@dimen/_5sdp"
-                        android:background="@drawable/et_bg"
-                        android:hint="@string/confirm_password"
-                        android:paddingStart="@dimen/_10sdp"
-                        android:singleLine="true"
-                        android:paddingEnd="@dimen/_10sdp"
-                        android:text="@={signUpViewModel.confirmPassword}"
-                        android:textColorHint="@color/light_blue"
-                        android:textSize="@dimen/_12sdp" />
-
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_confirm_password_error"
-                    isVisible="@{signUpViewModel.confirmPasswordError}"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_12sdp"
-                    android:layout_marginTop="0dp"
-
-                    android:gravity="start"
-                    android:text="@={signUpViewModel.confirmPasswordError}"
-                    android:textColor="@color/red"
-                    android:textSize="@dimen/_9sdp"
-                    android:visibility="gone" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_10sdp"
-                    android:layout_marginEnd="@dimen/_10sdp"
-                    android:orientation="horizontal">
-
-                    <FrameLayout
-                        android:layout_width="wrap_content"
+                        android:layout_margin="@dimen/_10sdp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1">
+                        android:orientation="vertical">
 
-                        <ImageView
-                            android:id="@+id/iv_tick_male"
-                            android:layout_width="@dimen/_15sdp"
-                            android:layout_height="@dimen/_12sdp"
-                            android:layout_gravity="end"
-                            android:src="@drawable/ic_tick" />
 
-                        <com.google.android.material.button.MaterialButton
-                            android:id="@+id/btn_male"
+                        <com.google.android.material.textfield.TextInputLayout style="@style/TextInputLayout">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_35sdp"
+                                android:layout_marginStart="@dimen/_10sdp"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:layout_marginEnd="@dimen/_10sdp"
+                                android:layout_marginBottom="@dimen/_5sdp"
+                                android:background="@drawable/et_bg"
+                                android:hint="@string/first_name"
+                                android:paddingStart="@dimen/_10sdp"
+                                android:paddingEnd="@dimen/_10sdp"
+                                android:inputType="text"
+                                android:singleLine="true"
+                                android:text="@={signUpViewModel.firstName}"
+                                android:textColorHint="@color/light_blue"
+                                android:textSize="@dimen/_12sdp" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tv_name_error"
+
+                            isVisible="@{signUpViewModel.firstNameError}"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/_5sdp"
-                            android:onClick="@{(v)->listener.onClick(v)}"
-                            android:text="Male"
-                            android:textAllCaps="false"
-                            app:cornerRadius="@dimen/_10sdp"
-                            app:icon="@drawable/ic_male"
-                            app:iconGravity="textStart"
-                            app:iconSize="@dimen/_15sdp" />
-
-                    </FrameLayout>
-
-                    <FrameLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1">
-
-                        <ImageView
-                            android:id="@+id/iv_tick_female"
-                            android:layout_width="@dimen/_15sdp"
-                            android:layout_height="@dimen/_12sdp"
-                            android:layout_gravity="end"
-                            android:src="@drawable/ic_tick"
+                            android:layout_marginStart="@dimen/_12sdp"
+                            android:layout_marginTop="0dp"
+                            android:gravity="start"
+                            android:text="@={signUpViewModel.firstNameError}"
+                            android:textColor="@color/red"
+                            android:textSize="@dimen/_9sdp"
                             android:visibility="gone" />
 
-                        <com.google.android.material.button.MaterialButton
-                            android:id="@+id/btn_female"
+                        <com.google.android.material.textfield.TextInputLayout style="@style/TextInputLayout">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_35sdp"
+                                android:layout_marginStart="@dimen/_10sdp"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:layout_marginEnd="@dimen/_10sdp"
+                                android:layout_marginBottom="@dimen/_5sdp"
+                                android:background="@drawable/et_bg"
+                                android:hint="@string/last_name"
+                                android:inputType="text"
+                                android:paddingStart="@dimen/_10sdp"
+                                android:paddingEnd="@dimen/_10sdp"
+                                android:singleLine="true"
+                                android:text="@={signUpViewModel.lastName}"
+                                android:textColorHint="@color/light_blue"
+                                android:textSize="@dimen/_12sdp" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tv_last_name_error"
+
+                            isVisible="@{signUpViewModel.lastNameError}"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/_5sdp"
-                            android:onClick="@{(v)->listener.onClick(v)}"
-                            android:text="Female"
-                            android:textAllCaps="false"
-                            app:cornerRadius="@dimen/_10sdp"
-                            app:icon="@drawable/ic_female"
-                            app:iconGravity="textStart"
-                            app:iconSize="@dimen/_15sdp" />
+                            android:layout_marginStart="@dimen/_12sdp"
+                            android:layout_marginTop="0dp"
+                            android:gravity="start"
+                            android:text="@={signUpViewModel.lastNameError}"
+                            android:textColor="@color/red"
+                            android:textSize="@dimen/_9sdp"
+                            android:visibility="gone" />
 
-                    </FrameLayout>
-                </LinearLayout>
+                        <com.google.android.material.textfield.TextInputLayout style="@style/TextInputLayout">
 
 
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    style="@style/fab_button"
-                    android:onClick="@{() -> signUpViewModel.validation()}"
-                    app:srcCompat="@drawable/ic_arrow_right" />
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_35sdp"
+                                android:layout_marginStart="@dimen/_10sdp"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:layout_marginEnd="@dimen/_10sdp"
+                                android:layout_marginBottom="@dimen/_5sdp"
+                                android:background="@drawable/et_bg"
+                                android:hint="@string/email"
+                                android:inputType="textEmailAddress"
+                                android:paddingStart="@dimen/_10sdp"
+                                android:paddingEnd="@dimen/_10sdp"
+                                android:singleLine="true"
+                                android:text="@={signUpViewModel.emailId}"
+                                android:textColorHint="@color/light_blue"
+                                android:textSize="@dimen/_12sdp" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_10sdp"
-                    android:gravity="center"
-                    android:orientation="horizontal">
+                        </com.google.android.material.textfield.TextInputLayout>
 
-                    <com.google.android.material.textview.MaterialTextView
-                        style="@style/Small_TextView"
-                        android:layout_width="0dp"
-                        android:layout_margin="0dp"
-                        android:layout_marginStart="@dimen/_10sdp"
-                        android:layout_marginEnd="@dimen/_2sdp"
-                        android:layout_weight="2"
-                        android:gravity="end"
-                        android:padding="@dimen/_2sdp"
-                        android:text="Already have an account?" />
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tv_email_error"
+                            isVisible="@{signUpViewModel.emailIdError}"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_12sdp"
+                            android:layout_marginTop="0dp"
+                            android:gravity="start"
 
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/tv_login"
-                        style="@style/Small_TextView"
-                        android:layout_width="0dp"
-                        android:layout_margin="0dp"
-                        android:layout_marginStart="@dimen/_2sdp"
-                        android:layout_marginEnd="@dimen/_10sdp"
-                        android:layout_weight="1"
-                        android:gravity="start"
-                        android:onClick="@{(v)->listener.onClick(v)}"
-                        android:padding="@dimen/_2sdp"
-                        android:text="@string/login"
-                        android:textColor="@color/light_blue" />
+                            android:text="@={signUpViewModel.emailIdError}"
 
-                </LinearLayout>
+                            android:textColor="@color/red"
+                            android:textSize="@dimen/_9sdp"
+                            android:visibility="gone" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:visibility="gone">
-
-                    <com.google.android.material.floatingactionbutton.FloatingActionButton
-                        style="@style/fab_button"
-                        app:srcCompat="@drawable/ic_facebook" />
-
-                    <com.google.android.material.floatingactionbutton.FloatingActionButton
-                        style="@style/fab_button"
-                        app:srcCompat="@drawable/ic_google" />
+                        <com.google.android.material.textfield.TextInputLayout style="@style/TextInputLayout">
 
 
-                </LinearLayout>
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_35sdp"
+                                android:layout_marginStart="@dimen/_10sdp"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:layout_marginEnd="@dimen/_10sdp"
+                                android:layout_marginBottom="@dimen/_5sdp"
+                                android:background="@drawable/et_bg"
+                                android:hint="@string/emergency_number"
+                                android:paddingStart="@dimen/_10sdp"
+                                android:paddingEnd="@dimen/_10sdp"
+                                android:singleLine="true"
+                                android:maxLength="10"
+                                android:inputType="number"
+                                android:text="@={signUpViewModel.emergencyNumber}"
+                                android:textColorHint="@color/light_blue"
+                                android:textSize="@dimen/_12sdp" />
 
-            </LinearLayout>
+                        </com.google.android.material.textfield.TextInputLayout>
 
-        </androidx.core.widget.NestedScrollView>
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tv_emergency_error"
+                            isVisible="@{signUpViewModel.emergencyNumberError}"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_12sdp"
+                            android:layout_marginTop="0dp"
+
+                            android:gravity="start"
+                            android:text="@={signUpViewModel.emergencyNumberError}"
+                            android:textColor="@color/red"
+                            android:textSize="@dimen/_9sdp"
+                            android:visibility="gone" />
+
+                        <com.google.android.material.textfield.TextInputLayout style="@style/TextInputLayout">
+
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_35sdp"
+                                android:layout_marginStart="@dimen/_10sdp"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:layout_marginEnd="@dimen/_10sdp"
+                                android:layout_marginBottom="@dimen/_5sdp"
+                                android:background="@drawable/et_bg"
+                                android:hint="@string/password"
+                                android:paddingStart="@dimen/_10sdp"
+                                android:paddingEnd="@dimen/_10sdp"
+                                android:singleLine="true"
+                                android:text="@={signUpViewModel.password}"
+                                android:textColorHint="@color/light_blue"
+                                android:textSize="@dimen/_12sdp" />
+
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tv_password_error"
+
+                            isVisible="@{signUpViewModel.passwordError}"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_12sdp"
+
+                            android:layout_marginTop="0dp"
+                            android:gravity="start"
+                            android:text="@={signUpViewModel.passwordError}"
+                            android:textColor="@color/red"
+                            android:textSize="@dimen/_9sdp"
+                            android:visibility="gone" />
+
+                        <com.google.android.material.textfield.TextInputLayout style="@style/TextInputLayout">
+
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/_35sdp"
+                                android:layout_marginStart="@dimen/_10sdp"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:layout_marginEnd="@dimen/_10sdp"
+                                android:layout_marginBottom="@dimen/_5sdp"
+                                android:background="@drawable/et_bg"
+                                android:hint="@string/confirm_password"
+                                android:paddingStart="@dimen/_10sdp"
+                                android:paddingEnd="@dimen/_10sdp"
+                                android:singleLine="true"
+                                android:text="@={signUpViewModel.confirmPassword}"
+                                android:textColorHint="@color/light_blue"
+                                android:textSize="@dimen/_12sdp" />
+
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tv_confirm_password_error"
+                            isVisible="@{signUpViewModel.confirmPasswordError}"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_12sdp"
+                            android:layout_marginTop="0dp"
+
+                            android:gravity="start"
+                            android:text="@={signUpViewModel.confirmPasswordError}"
+                            android:textColor="@color/red"
+                            android:textSize="@dimen/_9sdp"
+                            android:visibility="gone" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/_10sdp"
+                            android:layout_marginEnd="@dimen/_10sdp"
+                            android:orientation="horizontal">
+
+                            <FrameLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1">
+
+                                <ImageView
+                                    android:id="@+id/iv_tick_male"
+                                    android:layout_width="@dimen/_15sdp"
+                                    android:layout_height="@dimen/_12sdp"
+                                    android:layout_gravity="end"
+                                    android:src="@drawable/ic_tick" />
+
+                                <com.google.android.material.button.MaterialButton
+                                    android:id="@+id/btn_male"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="@dimen/_5sdp"
+                                    android:onClick="@{(v)->listener.onClick(v)}"
+                                    android:text="Male"
+                                    android:textAllCaps="false"
+                                    app:cornerRadius="@dimen/_10sdp"
+                                    app:icon="@drawable/ic_male"
+                                    app:iconGravity="textStart"
+                                    app:iconSize="@dimen/_15sdp" />
+
+                            </FrameLayout>
+
+                            <FrameLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1">
+
+                                <ImageView
+                                    android:id="@+id/iv_tick_female"
+                                    android:layout_width="@dimen/_15sdp"
+                                    android:layout_height="@dimen/_12sdp"
+                                    android:layout_gravity="end"
+                                    android:src="@drawable/ic_tick"
+                                    android:visibility="gone" />
+
+                                <com.google.android.material.button.MaterialButton
+                                    android:id="@+id/btn_female"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="@dimen/_5sdp"
+                                    android:onClick="@{(v)->listener.onClick(v)}"
+                                    android:text="Female"
+                                    android:textAllCaps="false"
+                                    app:cornerRadius="@dimen/_10sdp"
+                                    app:icon="@drawable/ic_female"
+                                    app:iconGravity="textStart"
+                                    app:iconSize="@dimen/_15sdp" />
+
+                            </FrameLayout>
+                        </LinearLayout>
+
+
+                        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                            style="@style/fab_button"
+                            android:layout_gravity="center"
+                            android:onClick="@{() -> signUpViewModel.validation()}"
+                            app:srcCompat="@drawable/ic_arrow_right" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/_10sdp"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <com.google.android.material.textview.MaterialTextView
+                                style="@style/Small_TextView"
+                                android:layout_width="0dp"
+                                android:layout_margin="0dp"
+                                android:layout_marginStart="@dimen/_10sdp"
+                                android:layout_marginEnd="@dimen/_2sdp"
+                                android:layout_weight="2"
+                                android:gravity="end"
+                                android:padding="@dimen/_2sdp"
+                                android:text="Already have an account?" />
+
+                            <com.google.android.material.textview.MaterialTextView
+                                android:id="@+id/tv_login"
+                                style="@style/Small_TextView"
+                                android:layout_width="0dp"
+                                android:layout_margin="0dp"
+                                android:layout_marginStart="@dimen/_2sdp"
+                                android:layout_marginEnd="@dimen/_10sdp"
+                                android:layout_weight="1"
+                                android:gravity="start"
+                                android:onClick="@{(v)->listener.onClick(v)}"
+                                android:padding="@dimen/_2sdp"
+                                android:text="@string/login"
+                                android:textColor="@color/light_blue" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:visibility="gone">
+
+                            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                                style="@style/fab_button"
+                                app:srcCompat="@drawable/ic_facebook" />
+
+                            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                                style="@style/fab_button"
+                                app:srcCompat="@drawable/ic_google" />
+
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </androidx.core.widget.NestedScrollView>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
 
         </FrameLayout>
     </LinearLayout>

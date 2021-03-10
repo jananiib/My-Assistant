@@ -6,6 +6,7 @@ import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.bot.alvinbot.R
+import com.bot.alvinbot.data.model.User
 import com.bot.alvinbot.data.network.Status
 import com.bot.alvinbot.databinding.ActivitySignUpBinding
 import com.bot.alvinbot.extensions.hideView
@@ -32,6 +33,7 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
         binding.listener = this
 
         registerObserver()
+        userObserver()
     }
 
     private fun registerObserver() {
@@ -39,21 +41,67 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
             result?.status?.let {
                 when (it) {
                     Status.SUCCESS -> {
-                        hideProgress()
-                        auth.signOut()
-                        showToast(
-                            "Registration Successfully"
-                        )
-                        finish()
+                        result.data?.user?.let { user ->
+                            auth.signOut()
+                            dismissProgressBar()
+                            showSuccessCustomToast(
+                                "Registration Successfully"
+                            )
+
+                            finish()
+                       /*     signUpViewModel.addUserCollection(
+                                User(
+                                    user.uid,
+                                    signUpViewModel.firstName.get()!!,
+                                    signUpViewModel.lastName.get()!!,
+                                    signUpViewModel.emailId.get()!!,
+                                    "",
+                                    signUpViewModel.emergencyNumber.get()!!,
+                                    signUpViewModel.maleOfFemale.get()!!,
+                                    0
+                                )
+                            )*/
+                        }
+
                     }
                     Status.ERROR -> {
-                        hideProgress()
-                        showToast(
+                        dismissProgressBar()
+                        showFailureCustomToast(
                             result.message.toString()
                         )
                     }
                     Status.LOADING -> {
-                        showProgress()
+                        showProgressBar()
+                    }
+
+                }
+
+            }
+
+        })
+    }
+
+    private fun userObserver() {
+        signUpViewModel.apiResponseUser.observe(this, Observer { result ->
+            result?.status?.let {
+                when (it) {
+                    Status.SUCCESS -> {
+                        auth.signOut()
+                        dismissProgressBar()
+                        showSuccessCustomToast(
+                            "Registration Successfully"
+                        )
+
+                        finish()
+                    }
+                    Status.ERROR -> {
+                        dismissProgressBar()
+                        showFailureCustomToast(
+                            result.message.toString()
+                        )
+                    }
+                    Status.LOADING -> {
+                        showProgressBar()
                     }
 
                 }

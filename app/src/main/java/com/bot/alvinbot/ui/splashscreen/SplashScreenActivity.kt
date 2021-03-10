@@ -8,10 +8,6 @@ import com.bot.alvinbot.ui.base.BaseActivity
 import com.bot.alvinbot.ui.dashBoard.DashBoardActivity
 import com.bot.alvinbot.ui.login.LoginActivity
 import com.bot.alvinbot.utils.AskPermission
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.CenterCrop
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
@@ -59,11 +55,8 @@ class SplashScreenActivity : BaseActivity() {
                 checkLoggedInState()
             }
         }
+        setBotImageCornerRadius(findViewById(R.id.iv_logo))
 
-        var requestOptions = RequestOptions()
-        requestOptions = requestOptions.transform(CenterCrop(), RoundedCorners(50))
-        Glide.with(this).load(getImage("logo_bot")).apply(requestOptions)
-            .into(findViewById(R.id.iv_logo))
 
     }
 

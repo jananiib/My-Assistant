@@ -1,5 +1,6 @@
 package com.bot.alvinbot.ui.forgot
 
+import android.content.Context
 import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,10 +9,10 @@ import com.bot.alvinbot.data.network.Resource
 import com.bot.alvinbot.data.network.Status
 import com.bot.alvinbot.extensions.isNullOrEmpty
 import com.bot.alvinbot.extensions.isValidEmail
+import com.bot.alvinbot.extensions.showWarningMessage
 import com.bot.alvinbot.repo.AuthRepository
-import com.google.firebase.auth.AuthResult
+import com.bot.alvinbot.utils.NetworkUtils
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -19,7 +20,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ForgotPasswordViewModel @Inject constructor(
-    private val authRepository: AuthRepository
+    private val authRepository: AuthRepository,
+    private val context: Context
 ) : ViewModel() {
 
     private val _apiResponse = MutableLiveData<Resource<Void>>()
@@ -33,13 +35,11 @@ class ForgotPasswordViewModel @Inject constructor(
     fun validation() {
         clearError()
 
-
-
         if (!isNullOrEmpty(emailId.get())) {
-            emailIdError.set("Please Enter Email Id")
-        }else{
-            if (isValidEmail(emailId.get())){
-                emailIdError.set("Please Enter Valid Email Id")
+            emailIdError.set("Please enter Email Id")
+        } else {
+            if (isValidEmail(emailId.get())) {
+                emailIdError.set("Please enter valid Email Id")
             }
         }
 
@@ -58,9 +58,8 @@ class ForgotPasswordViewModel @Inject constructor(
 
     private fun forgotPassword() {
 
-        viewModelScope.launch {
-            CoroutineScope(Dispatchers.IO).launch {
-
+        if (NetworkUtils.isNetWorkAvailable(context)) {
+            viewModelScope.launch(Dispatchers.IO) {
                 _apiResponse.postValue(Resource(Status.LOADING, null, null))
 
                 kotlin.runCatching {
@@ -72,8 +71,10 @@ class ForgotPasswordViewModel @Inject constructor(
                 }.onFailure { failure ->
                     print(failure.message)
                 }
-
             }
+
+        } else {
+            showWarningMessage(context, "Check your internet connection")
         }
 
     }

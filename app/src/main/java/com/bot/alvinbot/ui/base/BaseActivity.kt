@@ -2,9 +2,7 @@ package com.bot.alvinbot.ui.base
 
 import android.app.Dialog
 import android.content.Context
-import android.content.Intent
 import android.graphics.Rect
-import android.net.Uri
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
@@ -12,20 +10,43 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatImageView
 import com.bot.alvinbot.R
-import com.bot.alvinbot.extensions.isNullOrEmpty
+import com.bot.alvinbot.utils.widgets.CProgressDialog
+import com.bot.alvinbot.utils.widgets.CustomToast
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 
-open class BaseActivity : AppCompatActivity() {
+open class BaseActivity : AppCompatActivity(), IBaseView {
 
     private val CLICK_DRAG_TOLERANCE = 10f
     var downRawX: Float = 0.toFloat()
     var downRawY: Float = 0.toFloat()
     private var dX: Float = 0.toFloat()
     private var dY: Float = 0.toFloat()
+/*
+    lateinit var progressDialog: Dialog*/
 
-    lateinit var progressDialog: Dialog
+    private var cProgressDialog: CProgressDialog? = null
 
+    override fun showProgressBar() {
+        if (!isFinishing) progressDialog().show()
+    }
 
+    override fun dismissProgressBar() {
+        if (!isFinishing && cProgressDialog != null && cProgressDialog?.isShowing()!!) cProgressDialog?.dismiss()
+    }
+
+    private fun progressDialog(): CProgressDialog {
+        if (cProgressDialog == null) {
+            cProgressDialog = CProgressDialog(this)
+        }
+        return cProgressDialog!!
+    }
+
+/*
     fun showProgress() {
         progressDialog = Dialog(this)
 
@@ -43,7 +64,7 @@ open class BaseActivity : AppCompatActivity() {
         progressDialog.apply {
             dismiss()
         }
-    }
+    }*/
 
     fun dispatchTouchEvents(ev: MotionEvent?) {
         if (ev?.action == MotionEvent.ACTION_DOWN) {
@@ -140,7 +161,7 @@ open class BaseActivity : AppCompatActivity() {
                              "Hi, This is ${name} (${mobileNumber}). I am taking a trip on a Taxi license plate $plateNumber and need urgent assistance. Here is my live link:\n $link"
                          )
                          startActivity(smsIntent)*/
-                }else {
+                } else {
                     //showFailureCustomToast("Please share the link")
 
                 }
@@ -161,8 +182,33 @@ open class BaseActivity : AppCompatActivity() {
         return resources.getIdentifier(imageName, "drawable", packageName)
     }
 
-     fun showToast(message: String) {
+    fun setBotImageCornerRadius(ivLogo: AppCompatImageView) {
+        var requestOptions = RequestOptions()
+        requestOptions = requestOptions.transform(CenterCrop(), RoundedCorners(50))
+        Glide.with(this).load(getImage("logo_bot")).apply(requestOptions)
+            .into(ivLogo)
+    }
+
+    fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
+
+
+    fun showSuccessCustomToast(msg: String) {
+        CustomToast.makeText(this, msg, 2000, CustomToast.SUCCESS).show()
+    }
+
+    fun showFailureCustomToast(msg: String) {
+        CustomToast.makeText(this, msg, 2000, CustomToast.ERROR).show()
+    }
+
+    fun showWarningCustomToast(msg: String) {
+        CustomToast.makeText(this, msg, 2000, CustomToast.WARNING).show()
+    }
+
+    fun showInfoCustomToast(msg: String) {
+        CustomToast.makeText(this, msg, 2000, CustomToast.INFO).show()
+    }
+
 
 }

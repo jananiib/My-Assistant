@@ -17,7 +17,8 @@
     <string name="sign_up">Sign Up</string>
 
     //Sign up Screen
-    <string name="name">Name</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
     <string name="email">Email</string>
     <string name="emergency_number">Emergency Number</string>
     <string name="confirm_password">Confirm Password</string>

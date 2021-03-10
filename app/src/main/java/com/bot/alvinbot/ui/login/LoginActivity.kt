@@ -9,20 +9,14 @@ import androidx.lifecycle.Observer
 import com.bot.alvinbot.R
 import com.bot.alvinbot.data.network.Status
 import com.bot.alvinbot.databinding.ActivityLoginBinding
-import com.bot.alvinbot.extensions.hideView
-import com.bot.alvinbot.extensions.showView
 import com.bot.alvinbot.ui.base.BaseActivity
-import com.bot.alvinbot.ui.dashBoard.DashBoardActivity
 import com.bot.alvinbot.ui.forgot.ForgotPasswordActivity
-import com.bot.alvinbot.ui.main.MainActivity
 import com.bot.alvinbot.ui.signup.SignUpActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
-import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class LoginActivity : BaseActivity(), View.OnClickListener {
@@ -39,10 +33,8 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         binding.loginViewModel = loginViewModel
         binding.listener = this
 
-        var requestOptions = RequestOptions()
-        requestOptions = requestOptions.transform(CenterCrop(), RoundedCorners(50))
-        Glide.with(this).load(getImage("logo_bot")).apply(requestOptions)
-            .into(binding.ivLogo)
+        setBotImageCornerRadius(binding.ivLogo)
+
 
         //Glide.with(this).asGif().load(R.drawable.tenor).into(binding.ivLogo);
 
@@ -73,18 +65,19 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
             result?.status?.let {
                 when (it) {
                     Status.SUCCESS -> {
-                        hideProgress()
-                        startActivity(Intent(this, DashBoardActivity::class.java))
-                        finish()
+                        dismissProgressBar()
+                        showSuccessCustomToast("Login successfully")
+                       /* startActivity(Intent(this, DashBoardActivity::class.java))
+                        finish()*/
                     }
                     Status.ERROR -> {
-                        hideProgress()
-                        showToast(
+                        dismissProgressBar()
+                        showFailureCustomToast(
                             result.message.toString()
                         )
                     }
                     Status.LOADING -> {
-                        showProgress()
+                        showProgressBar()
                     }
 
                 }
@@ -92,27 +85,6 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
             }
 
         })
-    }
-
-
-    private fun validation() {
-        if (binding.tieUsername.text.isNullOrEmpty()) {
-            binding.tvUsernameError.text = ("Username cannot be empty")
-            binding.tvUsernameError.showView()
-        } else {
-            binding.tvUsernameError.text = ("")
-            binding.tvUsernameError.hideView()
-        }
-        if (binding.tiePass.text.isNullOrEmpty()) {
-            binding.tvPassError.text = ("Password cannot be empty")
-            binding.tvPassError.showView()
-        } else {
-            binding.tvPassError.text = ("")
-            binding.tvPassError.hideView()
-        }
-        if (!binding.tieUsername.text.isNullOrEmpty() && !binding.tiePass.text.isNullOrEmpty()) {
-            startActivity(Intent(this, DashBoardActivity::class.java))
-        }
     }
 
 }

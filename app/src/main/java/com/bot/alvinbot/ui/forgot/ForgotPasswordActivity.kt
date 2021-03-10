@@ -29,10 +29,7 @@ class ForgotPasswordActivity : BaseActivity(), View.OnClickListener {
         binding.forgotPasswordViewModel = forgotPasswordViewModel
         binding.listener = this
 
-        var requestOptions = RequestOptions()
-        requestOptions = requestOptions.transform(CenterCrop(), RoundedCorners(50))
-        Glide.with(this).load(getImage("logo_bot")).apply(requestOptions)
-            .into(binding.ivLogo)
+        setBotImageCornerRadius(binding.ivLogo)
 
         forgotPasswordObserver()
     }
@@ -42,19 +39,20 @@ class ForgotPasswordActivity : BaseActivity(), View.OnClickListener {
             result?.status?.let {
                 when (it) {
                     Status.SUCCESS -> {
-                        hideProgress()
-                        showToast(
+                        dismissProgressBar()
+                        showSuccessCustomToast(
                             "Email sent successfully to reset your password"
                         )
+                        finish()
                     }
                     Status.ERROR -> {
-                        hideProgress()
-                        showToast(
+                        dismissProgressBar()
+                        showFailureCustomToast(
                             result.message.toString()
                         )
                     }
                     Status.LOADING -> {
-                        showProgress()
+                        showProgressBar()
                     }
 
                 }

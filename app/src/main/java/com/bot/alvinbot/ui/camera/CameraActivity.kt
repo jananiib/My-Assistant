@@ -77,7 +77,7 @@ class CameraActivity : BaseActivity(), View.OnClickListener {
     }
 
     private fun takePhoto() {
-        showProgress()
+        showProgressBar()
         // Get a stable reference of the modifiable image capture use case
         val imageCapture = imageCapture ?: return
 
@@ -100,7 +100,7 @@ class CameraActivity : BaseActivity(), View.OnClickListener {
             object : ImageCapture.OnImageSavedCallback {
                 override fun onError(exc: ImageCaptureException) {
                     Log.e(TAG, "Photo capture failed: ${exc.message}", exc)
-                    hideProgress()
+                    dismissProgressBar()
                 }
 
                 override fun onImageSaved(output: ImageCapture.OutputFileResults) {
@@ -183,15 +183,15 @@ class CameraActivity : BaseActivity(), View.OnClickListener {
                     imageText = imageText.plus("${textBlock.value} \n")
                 }
                 CoroutineScope(Dispatchers.Main).launch {
-                    hideProgress()
+                    dismissProgressBar()
                     bottomSheetShare(imageText)
                 }
             } else {
-                hideProgress()
+                dismissProgressBar()
                 println("bitmap is null")
             }
         } catch (e: SQLException) {
-            hideProgress()
+            dismissProgressBar()
         }
     }
 
