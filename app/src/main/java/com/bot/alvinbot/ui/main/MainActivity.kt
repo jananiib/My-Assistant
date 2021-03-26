@@ -23,16 +23,27 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.bot.alvinbot.R
-import com.bot.alvinbot.ui.adapter.ChatMessageAdapter
+import com.bot.alvinbot.data.db.AppDatabase
 import com.bot.alvinbot.data.model.ChatMessage
+import com.bot.alvinbot.data.model.ChatUser
+import com.bot.alvinbot.ui.adapter.ChatMessageAdapter
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import dagger.hilt.android.AndroidEntryPoint
 import org.alicebot.ab.*
 import org.alicebot.ab.Timer
 import java.io.*
 import java.util.*
+import javax.inject.Inject
+import kotlin.collections.ArrayList
 
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+
+    @Inject
+    lateinit var appDatabase: AppDatabase
+
+
     // ActionBar actionBar;
     private var mListView: ListView? = null
     private var mButtonSend: FloatingActionButton? = null
@@ -44,13 +55,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        val PREFERENCE_NAME = "SharedPreferenceExample"
-        val preference = this.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE)
-        val editor = preference.edit()
-        editor.putString(PREFERENCE_NAME, "my name is janani")
-
-
 
 
 /*
@@ -164,16 +168,17 @@ class MainActivity : AppCompatActivity() {
         mainFunction(args)
         initializeTexttoSpeach()
 
-        val list=listOf("hi","my name is janani","bye")
-        list.forEach {
-            sendMessage(it)
-            val response = chat!!.multisentenceRespond(
-                it
-            )
-            mimicOtherMessage(response)
-        }
+        appDatabase.IChatDao().getChatListData()?.observe(this, androidx.lifecycle.Observer {
 
+            it.forEach {
+                sendMessage(it.content.toString())
+                val response = chat!!.multisentenceRespond(
+                    it.content.toString()
+                )
+                mimicOtherMessage(response)
+            }
 
+        })
 
         //speack(response)
         mEditTextMessage!!.setText("")
@@ -385,6 +390,27 @@ class MainActivity : AppCompatActivity() {
             println("Human: $request")
             println("Robot: $response")
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+
+        appDatabase.IChatDao().deleteChatData()
+        for (i in mAdapter?.getListData()?.indices!!) {
+            mAdapter?.getListData()?.get(i)?.isMine?.let {
+                if (it)
+                    appDatabase.IChatDao().insertChat(ChatUser(
+                        content = mAdapter?.getListData()?.get(i)?.content.toString(),
+                        isMine = mAdapter?.getListData()?.get(i)?.isMine
+                    )
+                    )
+
+            }
+
+        }
+
+
+
     }
 }
 

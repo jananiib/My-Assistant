@@ -16,6 +16,7 @@ import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import com.bot.alvinbot.R
+import com.bot.alvinbot.data.local.PreferenceManager
 import com.bot.alvinbot.databinding.ActivityDashBoardBinding
 import com.bot.alvinbot.databinding.BottomLogoutBinding
 import com.bot.alvinbot.databinding.ItemDashboardInstructionBinding
@@ -24,10 +25,6 @@ import com.bot.alvinbot.ui.base.IDashboardSOSVisibleOrNot
 import com.bot.alvinbot.ui.camera.CameraActivity
 import com.bot.alvinbot.ui.login.LoginActivity
 import com.bot.alvinbot.ui.main.MainActivity
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.CenterCrop
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
@@ -46,6 +43,9 @@ class DashBoardActivity : BaseActivity(), View.OnClickListener, View.OnTouchList
     @Inject
     lateinit var auth: FirebaseAuth
 
+    @Inject
+    lateinit var preferenceManager: PreferenceManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding =
@@ -56,14 +56,11 @@ class DashBoardActivity : BaseActivity(), View.OnClickListener, View.OnTouchList
 
         binding.ivSos.setOnTouchListener(this)
 
-        var requestOptions = RequestOptions()
-        requestOptions = requestOptions.transform(CenterCrop(), RoundedCorners(50))
-        Glide.with(this).load(getImage("logo_bot")).apply(requestOptions)
-            .into(binding.ivLogo)
+        setBotImageCornerRadius(binding.ivLogo)
 
         viewPagerSetUp(
             listOf(
-                ModelInstruction("Title1", "Test1"),
+                ModelInstruction("Call", "You can call directly"),
                 ModelInstruction("Title2", "Test2"),
                 ModelInstruction("Title3", "Test3"),
                 ModelInstruction("Title4", "Test4"),
@@ -71,16 +68,19 @@ class DashBoardActivity : BaseActivity(), View.OnClickListener, View.OnTouchList
             )
         )
 
+        binding.tvName.text =
+            ("Welcome,\n${preferenceManager.getStringValue(PreferenceManager.USER_NAME)}")
+
 
     }
 
     override fun onClick(v: View?) {
         when (v) {
             binding.cvChat -> {
-             //   startActivity(Intent(this, MainActivity::class.java))
+                startActivity(Intent(this, MainActivity::class.java))
             }
             binding.cvScan -> {
-               // startActivity(Intent(this, CameraActivity::class.java))
+                startActivity(Intent(this, CameraActivity::class.java))
             }
             binding.ivLogout -> {
                 bottomSheetLogout()
@@ -101,7 +101,8 @@ class DashBoardActivity : BaseActivity(), View.OnClickListener, View.OnTouchList
             view,
             motionEvent,
             true,
-            shareLocation()
+            shareLocation(),
+            preferenceManager.getStringValue(PreferenceManager.EMERGENCY_NUMBER).toString()
         )
 
     }
@@ -187,9 +188,8 @@ class DashBoardActivity : BaseActivity(), View.OnClickListener, View.OnTouchList
             val latitude: Double? = myLocation?.latitude
             val currentTime = Calendar.getInstance().time
 
-            return "As of: ${currentTime}, " +
-                    "I am at: http://maps.google.com/?q=" +
-                    "${latitude},${longitude} Please emergency"
+            return "As of: ${currentTime}, I am at: http://maps.google.com/?q=${latitude},${longitude} Please emergency"
+
         } else {
             return ""
         }

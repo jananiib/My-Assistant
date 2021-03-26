@@ -43,13 +43,7 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
                     Status.SUCCESS -> {
                         result.data?.user?.let { user ->
                             auth.signOut()
-                            dismissProgressBar()
-                            showSuccessCustomToast(
-                                "Registration Successfully"
-                            )
-
-                            finish()
-                       /*     signUpViewModel.addUserCollection(
+                            signUpViewModel.addUserCollection(
                                 User(
                                     user.uid,
                                     signUpViewModel.firstName.get()!!,
@@ -60,7 +54,7 @@ class SignUpActivity : BaseActivity(), View.OnClickListener {
                                     signUpViewModel.maleOfFemale.get()!!,
                                     0
                                 )
-                            )*/
+                            )
                         }
 
                     }

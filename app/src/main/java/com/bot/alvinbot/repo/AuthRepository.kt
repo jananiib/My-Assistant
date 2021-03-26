@@ -6,6 +6,7 @@ import com.bot.alvinbot.data.network.Status
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.SetOptions
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -58,6 +59,17 @@ class AuthRepository @Inject constructor(
             val result = userCollectionRef.document(
                 user.id
             ).set(user, SetOptions.merge()).await()
+
+            emit(Resource(Status.SUCCESS, result, null))
+        }.catch {
+            emit(Resource(Status.ERROR, null, it.message))
+        }
+    }
+
+    suspend fun getUserCollection(userId: String): Flow<Resource<DocumentSnapshot>> {
+        return flow {
+
+            val result = userCollectionRef.document(userId).get().await()
 
             emit(Resource(Status.SUCCESS, result, null))
         }.catch {

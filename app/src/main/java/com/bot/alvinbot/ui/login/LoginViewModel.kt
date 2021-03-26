@@ -5,6 +5,7 @@ import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.bot.alvinbot.data.model.User
 import com.bot.alvinbot.data.network.Resource
 import com.bot.alvinbot.data.network.Status
 import com.bot.alvinbot.extensions.isNullOrEmpty
@@ -13,7 +14,9 @@ import com.bot.alvinbot.extensions.showWarningMessage
 import com.bot.alvinbot.repo.AuthRepository
 import com.bot.alvinbot.utils.NetworkUtils
 import com.google.firebase.auth.AuthResult
+import com.google.firebase.firestore.DocumentSnapshot
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -27,6 +30,9 @@ class LoginViewModel @Inject constructor(
 
     private val _apiResponse = MutableLiveData<Resource<AuthResult>>()
     val apiResponse: MutableLiveData<Resource<AuthResult>> = _apiResponse
+
+    private val _apiResponseUser = MutableLiveData<Resource<DocumentSnapshot>>()
+    val apiResponseUser: MutableLiveData<Resource<DocumentSnapshot>> = _apiResponseUser
 
     var emailId = ObservableField("")
     var password = ObservableField("")
@@ -98,6 +104,29 @@ class LoginViewModel @Inject constructor(
 
 
     }
+
+    fun getUserCollection(userId: String) {
+
+        viewModelScope.launch {
+            CoroutineScope(Dispatchers.IO).launch {
+
+                _apiResponseUser.postValue(Resource(Status.LOADING, null, null))
+
+                kotlin.runCatching {
+                    authRepository.getUserCollection(userId)
+                }.onSuccess { success ->
+                    success.collect {
+                        _apiResponseUser.postValue(it)
+                    }
+                }.onFailure { failure ->
+                    print(failure.message)
+                }
+
+            }
+        }
+
+    }
+
 
 
 }

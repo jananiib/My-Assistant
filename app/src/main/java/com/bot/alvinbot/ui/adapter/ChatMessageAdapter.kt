@@ -12,7 +12,7 @@ import com.bot.alvinbot.data.model.ChatMessage
 
 class ChatMessageAdapter(
     context: Context?,
-    data: List<ChatMessage?>?
+    var data: List<ChatMessage?>?
 ) :
     ArrayAdapter<ChatMessage?>(context!!, R.layout.item_mine_message, data!!) {
     override fun getViewTypeCount(): Int {
@@ -23,6 +23,10 @@ class ChatMessageAdapter(
     override fun getItemViewType(position: Int): Int {
         val item: ChatMessage? = getItem(position)
         return if (item?.isMine!! && !item.isImage) MY_MESSAGE else if (!item.isMine && !item.isImage) OTHER_MESSAGE else if (item.isMine && item.isImage) MY_IMAGE else OTHER_IMAGE
+    }
+
+    fun getListData(): List<ChatMessage?>? {
+        return data
     }
 
     override fun getView(

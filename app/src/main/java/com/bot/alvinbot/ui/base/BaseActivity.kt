@@ -1,8 +1,8 @@
 package com.bot.alvinbot.ui.base
 
-import android.app.Dialog
 import android.content.Context
 import android.graphics.Rect
+import android.telephony.SmsManager
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
@@ -11,13 +11,13 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatImageView
-import com.bot.alvinbot.R
 import com.bot.alvinbot.utils.widgets.CProgressDialog
 import com.bot.alvinbot.utils.widgets.CustomToast
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
+import kotlin.math.abs
 
 open class BaseActivity : AppCompatActivity(), IBaseView {
 
@@ -85,7 +85,8 @@ open class BaseActivity : AppCompatActivity(), IBaseView {
         view: View,
         motionEvent: MotionEvent,
         clicked: Boolean,
-        location: String
+        location: String,
+        mobileNo: String
     ): Boolean {
         val layoutParams = view.layoutParams as ViewGroup.MarginLayoutParams
 
@@ -144,31 +145,13 @@ open class BaseActivity : AppCompatActivity(), IBaseView {
             val upDX = upRawX - downRawX
             val upDY = upRawY - downRawY
 
-            if (Math.abs(upDX) < CLICK_DRAG_TOLERANCE && Math.abs(upDY) < CLICK_DRAG_TOLERANCE) { // A click
-
+            return if (abs(upDX) < CLICK_DRAG_TOLERANCE && abs(upDY) < CLICK_DRAG_TOLERANCE) { // A click
                 if (clicked) {
-
-                    Toast.makeText(this, location, Toast.LENGTH_SHORT).show()
-
-                    /*     val smsIntent = Intent(
-                             Intent.ACTION_SENDTO,
-                             Uri.parse(
-                                 "smsto:${sosPrimaryNumber};${sosSecondaryNumber}"
-                             )
-                         )
-                         smsIntent.putExtra(
-                             "sms_body",
-                             "Hi, This is ${name} (${mobileNumber}). I am taking a trip on a Taxi license plate $plateNumber and need urgent assistance. Here is my live link:\n $link"
-                         )
-                         startActivity(smsIntent)*/
-                } else {
-                    //showFailureCustomToast("Please share the link")
-
+                    sendSMS(mobileNo, location)
                 }
-
-                return false
+                false
             } else { // A drag
-                return true; // Consumed
+                true; // Consumed
             }
 
 
@@ -208,6 +191,17 @@ open class BaseActivity : AppCompatActivity(), IBaseView {
 
     fun showInfoCustomToast(msg: String) {
         CustomToast.makeText(this, msg, 2000, CustomToast.INFO).show()
+    }
+
+    open fun sendSMS(phoneNo: String?, msg: String?) {
+        try {
+            val smsManager: SmsManager = SmsManager.getDefault()
+            smsManager.sendTextMessage(phoneNo, null, msg, null, null)
+            showSuccessCustomToast("Message Sent Successfully")
+        } catch (ex: Exception) {
+            showFailureCustomToast(ex.message.toString())
+            ex.printStackTrace()
+        }
     }
 
 

@@ -7,17 +7,17 @@ import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.bot.alvinbot.R
+import com.bot.alvinbot.data.local.PreferenceManager
+import com.bot.alvinbot.data.local.PreferenceManager.Companion.EMERGENCY_NUMBER
+import com.bot.alvinbot.data.local.PreferenceManager.Companion.USER_NAME
 import com.bot.alvinbot.data.network.Status
 import com.bot.alvinbot.databinding.ActivityLoginBinding
 import com.bot.alvinbot.ui.base.BaseActivity
 import com.bot.alvinbot.ui.dashBoard.DashBoardActivity
 import com.bot.alvinbot.ui.forgot.ForgotPasswordActivity
 import com.bot.alvinbot.ui.signup.SignUpActivity
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.CenterCrop
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.bumptech.glide.request.RequestOptions
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class LoginActivity : BaseActivity(), View.OnClickListener {
@@ -25,6 +25,8 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
     private val loginViewModel by viewModels<LoginViewModel>()
     lateinit var binding: ActivityLoginBinding
 
+    @Inject
+    lateinit var preferenceManager: PreferenceManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +39,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         setBotImageCornerRadius(binding.ivLogo)
 
         loginObserver()
+        userObserver()
 
     }
 
@@ -51,14 +54,67 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         }
     }
 
+
+    private fun userObserver() {
+        loginViewModel.apiResponseUser.observe(this, Observer { result ->
+            result?.status?.let {
+                when (it) {
+                    Status.SUCCESS -> {
+                        //val user = result.data?.toObject(User::class.java)
+
+                        result.data?.data?.let {
+                            if (it.isNotEmpty()) {
+                                it["emergencyNumber"]?.let { emergencyNumber ->
+                                    preferenceManager.setValue(
+                                        EMERGENCY_NUMBER,
+                                        emergencyNumber.toString()
+                                    )
+
+                                }
+
+                                it["firstName"]?.let { firstName ->
+                                    preferenceManager.setValue(
+                                        USER_NAME,
+                                        "$firstName ${it["lastName"]}}"
+                                    )
+                                }
+
+
+                            }
+                        }
+
+
+
+                        dismissProgressBar()
+                        startActivity(Intent(this, DashBoardActivity::class.java))
+                        finish()
+                    }
+                    Status.ERROR -> {
+                        dismissProgressBar()
+                        showFailureCustomToast(
+                            result.message.toString()
+                        )
+                    }
+                    Status.LOADING -> {
+                        showProgressBar()
+                    }
+
+                }
+
+            }
+
+        })
+    }
+
+
     private fun loginObserver() {
         loginViewModel.apiResponse.observe(this, Observer { result ->
             result?.status?.let {
                 when (it) {
                     Status.SUCCESS -> {
-                        dismissProgressBar()
-                        startActivity(Intent(this, DashBoardActivity::class.java))
-                        finish()
+                        result.data?.user?.let { user ->
+                            loginViewModel.getUserCollection(user.uid)
+                        }
                     }
                     Status.ERROR -> {
                         dismissProgressBar()
