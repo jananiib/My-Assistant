@@ -1,0 +1,3 @@
+0,WHO IS ALBERT EINSTEIN,*,*,Albert Einstein was a German physicist.,guess_persons.aiml
+0,WHO IS Isaac NEWTON,*,*,Isaac Newton was a English physicist and mathematician.,guess_persons.aiml
+0,DO YOU KNOW WHO * IS,*,*,<srai>WHO IS <star/></srai>,guess_persons.aiml

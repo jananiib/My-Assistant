@@ -96,28 +96,41 @@ class MainActivity : AppCompatActivity() {
             val comp: String
             if (message.toUpperCase().startsWith("CALL")) {
                 // MAKE CALL
-                arr = message.split(" ").toTypedArray()
-                makeCall(arr[1])
+                try {
+                    arr = message.split(" ").toTypedArray()
+                    makeCall(arr[1])
+                    mEditTextMessage?.setText("")
+                } catch (e: Exception) {
+                    Toast.makeText(this, "Please enter space between", Toast.LENGTH_SHORT)
+                        .show()
+                }
             } else if (message.toUpperCase().startsWith("OPEN")) {
                 //open app
-                arr = message.split(" ").toTypedArray()
-                comp = getAppName(arr[1])
-                launchApp(comp)
+                try {
+                    arr = message.split(" ").toTypedArray()
+                    comp = getAppName(arr[1])
+                    launchApp(comp)
+                    mEditTextMessage?.setText("")
+                } catch (e: Exception) {
+                    Toast.makeText(this, "Please enter space between", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            } else {
+                //bot
+                val response = chat!!.multisentenceRespond(
+                    mEditTextMessage!!.text.toString()
+                )
+                if (TextUtils.isEmpty(message)) {
+                    return@OnClickListener
+                }
+                sendMessage(message)
+                mimicOtherMessage(response)
+                speack(response)
+                mEditTextMessage!!.setText("")
+                mListView!!.setSelection(mAdapter!!.count - 1)
             }
 
 
-            //bot
-            val response = chat!!.multisentenceRespond(
-                mEditTextMessage!!.text.toString()
-            )
-            if (TextUtils.isEmpty(message)) {
-                return@OnClickListener
-            }
-            sendMessage(message)
-            mimicOtherMessage(response)
-            speack(response)
-            mEditTextMessage!!.setText("")
-            mListView!!.setSelection(mAdapter!!.count - 1)
         })
         //checking SD card availablility
         val a = isSDCARDAvailable
@@ -353,9 +366,9 @@ class MainActivity : AppCompatActivity() {
         return packName
     }
 
-    protected fun launchApp(packageName: String) {
+    fun launchApp(packageName: String) {
         val mIntent = packageManager.getLaunchIntentForPackage(packageName)
-        if (packageName === "com.nothing") {
+        if (packageName == "com.nothing") {
             Toast.makeText(
                 applicationContext,
                 "App not found.", Toast.LENGTH_SHORT
@@ -399,16 +412,16 @@ class MainActivity : AppCompatActivity() {
         for (i in mAdapter?.getListData()?.indices!!) {
             mAdapter?.getListData()?.get(i)?.isMine?.let {
                 if (it)
-                    appDatabase.IChatDao().insertChat(ChatUser(
-                        content = mAdapter?.getListData()?.get(i)?.content.toString(),
-                        isMine = mAdapter?.getListData()?.get(i)?.isMine
-                    )
+                    appDatabase.IChatDao().insertChat(
+                        ChatUser(
+                            content = mAdapter?.getListData()?.get(i)?.content.toString(),
+                            isMine = mAdapter?.getListData()?.get(i)?.isMine
+                        )
                     )
 
             }
 
         }
-
 
 
     }
