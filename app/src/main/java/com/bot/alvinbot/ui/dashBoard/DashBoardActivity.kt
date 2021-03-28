@@ -25,6 +25,7 @@ import com.bot.alvinbot.ui.base.IDashboardSOSVisibleOrNot
 import com.bot.alvinbot.ui.camera.CameraActivity
 import com.bot.alvinbot.ui.login.LoginActivity
 import com.bot.alvinbot.ui.main.MainActivity
+import com.bot.alvinbot.utils.location.LocationUtils
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
@@ -34,7 +35,7 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class DashBoardActivity : BaseActivity(), View.OnClickListener, View.OnTouchListener,
-    IDashboardSOSVisibleOrNot {
+    IDashboardSOSVisibleOrNot, LocationUtils.LocationCallbacks {
 
     private val dashBoardViewModel by viewModels<DashBoardViewModel>()
     lateinit var binding: ActivityDashBoardBinding
@@ -45,6 +46,9 @@ class DashBoardActivity : BaseActivity(), View.OnClickListener, View.OnTouchList
 
     @Inject
     lateinit var preferenceManager: PreferenceManager
+
+    var latitude = 0.0
+    var longitude = 0.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -97,13 +101,17 @@ class DashBoardActivity : BaseActivity(), View.OnClickListener, View.OnTouchList
 
     override fun onTouch(view: View, motionEvent: MotionEvent): Boolean {
 
-        return floatingSos(
-            view,
-            motionEvent,
-            true,
-            shareLocation(),
-            preferenceManager.getStringValue(PreferenceManager.EMERGENCY_NUMBER).toString()
-        )
+        return if (shareLocation().isEmpty()) {
+            false
+        } else {
+            floatingSos(
+                view,
+                motionEvent,
+                true,
+                shareLocation(),
+                preferenceManager.getStringValue(PreferenceManager.EMERGENCY_NUMBER).toString()
+            )
+        }
 
     }
 
@@ -159,7 +167,9 @@ class DashBoardActivity : BaseActivity(), View.OnClickListener, View.OnTouchList
 
     }
 
+
     fun shareLocation(): String {
+
         val locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
         if (ActivityCompat.checkSelfPermission(
@@ -187,8 +197,13 @@ class DashBoardActivity : BaseActivity(), View.OnClickListener, View.OnTouchList
             val longitude: Double? = myLocation?.longitude
             val latitude: Double? = myLocation?.latitude
             val currentTime = Calendar.getInstance().time
+            if (longitude == null && latitude == null) {
+                showFailureCustomToast("Please enable location")
+                return ""
+            } else {
+                return "As of: ${currentTime}, I am at: http://maps.google.com/?q=${latitude},${longitude} Please emergency"
+            }
 
-            return "As of: ${currentTime}, I am at: http://maps.google.com/?q=${latitude},${longitude} Please emergency"
 
         } else {
             return ""
@@ -228,6 +243,16 @@ class DashBoardActivity : BaseActivity(), View.OnClickListener, View.OnTouchList
         }
 
         dialog.show()
+    }
+
+    override fun gpsStatus(isGPSEnable: Boolean) {
+
+    }
+
+    override fun currentLocation(location: Location) {
+        latitude = location.latitude
+        longitude = location.longitude
+
     }
 
 }

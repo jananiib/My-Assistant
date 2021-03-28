@@ -26,11 +26,15 @@ object AskPermission {
 
     const val LOCATION_FINE = Manifest.permission.ACCESS_FINE_LOCATION
 
+    const val LOCATION_BACKGROUND = Manifest.permission.ACCESS_BACKGROUND_LOCATION
+
     const val READ_CONTACTS = Manifest.permission.READ_CONTACTS
 
     const val CALL_PHONE = Manifest.permission.CALL_PHONE
 
     const val READ_SMS = Manifest.permission.READ_SMS
+
+    const val SEND_SMS = Manifest.permission.SEND_SMS
 
 
     const val ALREADY_PERMISSION_DENY_TEXT =

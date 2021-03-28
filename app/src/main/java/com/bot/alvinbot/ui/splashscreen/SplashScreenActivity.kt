@@ -34,9 +34,11 @@ class SplashScreenActivity : BaseActivity() {
                         AskPermission.WRITE_STORAGE,
                         AskPermission.LOCATION_COARSE,
                         AskPermission.LOCATION_FINE,
+                        AskPermission.LOCATION_BACKGROUND,
                         AskPermission.READ_CONTACTS,
                         AskPermission.CALL_PHONE,
-                        AskPermission.READ_SMS
+                        AskPermission.READ_SMS,
+                        AskPermission.SEND_SMS
                     )
                 )
             ) {
@@ -48,7 +50,9 @@ class SplashScreenActivity : BaseActivity() {
                         AskPermission.LOCATION_FINE,
                         AskPermission.READ_CONTACTS,
                         AskPermission.CALL_PHONE,
-                        AskPermission.READ_SMS
+                        AskPermission.LOCATION_BACKGROUND,
+                        AskPermission.READ_SMS,
+                        AskPermission.SEND_SMS
                     )
                 )
             } else {

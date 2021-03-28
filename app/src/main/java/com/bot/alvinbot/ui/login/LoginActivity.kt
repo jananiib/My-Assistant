@@ -75,7 +75,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                                 it["firstName"]?.let { firstName ->
                                     preferenceManager.setValue(
                                         USER_NAME,
-                                        "$firstName ${it["lastName"]}}"
+                                        "$firstName ${it["lastName"]}"
                                     )
                                 }
 
