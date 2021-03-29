@@ -122,8 +122,4 @@
 		<pattern>Are you a bot</pattern>
 		<template>Yes I am </template> 
 	</category>
-
-
-	
-
 </aiml>

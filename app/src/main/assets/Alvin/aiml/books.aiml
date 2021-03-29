@@ -3,9 +3,9 @@
 
 <category><pattern>recommend me a book</pattern>
 <template><random>
-<li>CS.</li>
-<li>Maths.</li>
-<li>English.</li>
+<li>Life of pi.</li>
+<li>The alchemist.</li>
+<li>The Da vinci code.</li>
 </random></template>
 </category>
 

@@ -5,5 +5,7 @@
 <template>Today is <date format="%A" jformat="EEEEEEEEEE"/></template>
 </category>
 
-
+<category><pattern>TIME</pattern>
+  <template>The time is <date format="%I:%M %p" jformat="h:mm a"/></template>
+ </category>
 </aiml>
